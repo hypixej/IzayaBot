@@ -33,6 +33,11 @@ if(isset($token_in_use)){
 	} else {
 		$id = null;
 	}
+	if(isset($_GET['cid'])){
+		$cid = $_GET['cid'];
+	} else {
+		$cid = null;
+	}
 	if(isset($_POST['content'])){
 		$content = $_POST['content'];
 	}
@@ -76,23 +81,43 @@ if(isset($token_in_use)){
 		$post = ['content' => $content,
 				];
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+	} elseif($ty == "editmessage"){
+		// Edit a message in a channel PATCH
+		$request = "/channels/$cid/messages/$id";
+		$post = "{'content': '$content'}";
+		array_push($headers, "Content-Type: application/json");
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		
+		// this does not work.
+	} 
+	if(isset($request)){
+		curl_setopt($ch, CURLOPT_URL, $baseurl . $request);
+		//curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1/izayabot/debug.json");
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+		curl_setopt($ch, CURLOPT_COOKIEJAR, 'cookie.txt');
+		curl_setopt($ch, CURLOPT_COOKIEFILE, 'cookie.txt');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$corejson = curl_exec($ch);
+		curl_close($ch);
+		$fetchedarray = json_decode($corejson, true);
 	}
-
-	curl_setopt($ch, CURLOPT_URL, $baseurl . $request);
-	//curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1/izayabot/debug.json");
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
-	curl_setopt($ch, CURLOPT_COOKIEJAR, 'cookie.txt');
-	curl_setopt($ch, CURLOPT_COOKIEFILE, 'cookie.txt');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$corejson = curl_exec($ch);
-	curl_close($ch);
-	$fetchedarray = json_decode($corejson, true);
 
 	if($ty == "messages"){
 		include("izayabot_engine/messagelist.php");
 	} elseif($ty == "channellist"){
 		include("izayabot_engine/channellist.php"); 
+	} elseif($ty == "msgedit"){
+		include("izayabot_engine/msgedit.php"); 
+	} elseif($ty == "editmessage"){ 
+		$gobacklink = "index.php?ty=messages&id=$cid";
+		$outputtohtml .= "<pre>";
+		$outputtohtml .= var_export($fetchedarray, true);
+		$outputtohtml .= "</pre>";
+		//var_dump($_GET);
+		//var_dump($_POST);
+		// this does not work.
 	} elseif($ty == "dump"){
 		$outputtohtml .= "<pre>";
 		$outputtohtml .= var_export($fetchedarray, true);

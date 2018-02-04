@@ -30,7 +30,7 @@ $outputtohtml .= "
 			}
 			$outputtohtml .= "</td>";
 			$outputtohtml .= "<td id='tdkb'>";
-			$outputtohtml .= "<button>Delete</button><button>Kick</button><button>Ban</button>";
+			$outputtohtml .= "<a href='index.php?ty=msgedit&cid=$id&id=" . $onemessage['id'] . "'><button>Edit</button></a><button>Delete</button><button>Kick</button><button>Ban</button>";
 			$outputtohtml .= "</td></tr>";
 		}
 		$outputtohtml .= "</table></center>";

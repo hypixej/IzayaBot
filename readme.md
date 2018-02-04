@@ -14,3 +14,6 @@ I'm also learning to use Discord api by working on this bot. More features to co
 <br><br>
 Update: January 24, 2018<br><br>
 1. Lots of features added, too lazy to document<br><br>
+<br><br>
+Update: February 4, 2018<br><br>
+1. Added broken message editor<br><br>
