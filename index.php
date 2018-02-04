@@ -82,18 +82,16 @@ if(isset($token_in_use)){
 				];
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 	} elseif($ty == "editmessage"){
-		// Edit a message in a channel PATCH
+		// Edit a message in a channel
 		$request = "/channels/$cid/messages/$id";
-		$post = "{'content': '$content'}";
+		$post = "{\"content\": \"" . $content. "\"}";
 		array_push($headers, "Content-Type: application/json");
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-		
-		// this does not work.
 	} 
 	if(isset($request)){
 		curl_setopt($ch, CURLOPT_URL, $baseurl . $request);
-		//curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1/izayabot/debug.json");
+		// curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1/izayabot/debug.json");
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
 		curl_setopt($ch, CURLOPT_COOKIEJAR, 'cookie.txt');
@@ -115,9 +113,6 @@ if(isset($token_in_use)){
 		$outputtohtml .= "<pre>";
 		$outputtohtml .= var_export($fetchedarray, true);
 		$outputtohtml .= "</pre>";
-		//var_dump($_GET);
-		//var_dump($_POST);
-		// this does not work.
 	} elseif($ty == "dump"){
 		$outputtohtml .= "<pre>";
 		$outputtohtml .= var_export($fetchedarray, true);
