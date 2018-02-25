@@ -1,11 +1,12 @@
 <?php
 $outputtohtml .= "
-<form action='index.php?ty=editmessage&id=$id&cid=$cid' method='POST'>
-		<table border='0'>
-		<tr>
-		<td width='5%'><img src='" . $avatarbaseurl. "/" . $bid . "/" . $bavatar . ".png' height='32' /></td>
-		<td width='15%'>" . $buser . "</td>
-		<td width='60%'><textarea name='content' style='width: 100%' placeholder='Type your message here and then click Post.'></textarea></td>
-		<td width='5%'><input type='submit' value='Post' /></td>
-</tr></table></form>";
+<table border='0'>
+<form action='index.php?ty=editmessage&mid=$mid&cid=$cid' method='POST'>
+	<tr>
+		<td class='tbavatar'><img src='" . $avatarbaseurl. "/" . $bid . "/" . $bavatar . ".png' height='38' /></td>
+		<td class='tbusername'>" . $buser . "</td>
+		<td class='tbtext'><textarea  class='tbtext' name='content' style='width: 100%' placeholder='Type your message here and then click Post.'>" . htmlspecialchars($fetchedarray['content']) . "</textarea></td>
+		<td class='tbbuttons'><input type='submit' value='Submit Edit' /></td>
+	</tr>
+</form></table>";
 ?>

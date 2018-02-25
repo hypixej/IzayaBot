@@ -12,7 +12,7 @@ body {
 .main {
 	background: #FFFFFF;
 	color: #111111;
-	max-width: 900px;
+	max-width: 1280px;
 	align: center;
 	margin: 25px auto 10px auto;
 	padding: 40px;
@@ -25,11 +25,11 @@ h9 {
 	text-align: right;
 }
 
-#wslogo{
+.wslogo{
 	align: center;
 }
 
-#rbtn {
+.rbtn {
 	max-width: 360px;
 }
 
@@ -63,57 +63,63 @@ input {
 	/*box-sizing: border-box; */
 }
 
-.pp1 {
-	float: left;
-	width: 220px;
-}
-
-.pdet {
-	float: left;
-	/*min-height: 200px;*/
-	overflow:hidden;
-}
-
-.footer {
-	clear: all;
-}
-
-
 
 table {
-width: 100%;
-  margin: 0 0 15px 0;
-  border-collapse: collapse;
+	width: 100%;
+	margin: 0 0 15px 0;
+	border-collapse: collapse;
 }
 
 tr {
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  
-	max-width: 100%;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+/*	max-width: 100%; */
 }
 
 tr:nth-child(even) {
-  background-color: rgba(0,0,0,0.03);  
+	background-color: rgba(0,0,0,0.03);  
 }
 
 td {
-  padding: 0.2em 1em 0.2em 6;
-  color: #666;
- vertical-align: top; 
-	max-width: 460px;
+	padding: 0.2em 1em 0.2em 6;
+	color: #666;
+	vertical-align: top; 
+/*	max-width: 460px;*/
 	word-wrap: break-word;
 }
 
 th {
-  text-align: left;
-/*  width: 230px;*/
-  font-weight: inherit;
-  color: #999;
-	max-width: 100%;
-  padding: 4px 6px 4px 0;
-  vertical-align: top;
-  border-bottom: 1px solid #ccc;
+	text-align: left;
+/*	width: 230px;*/
+	font-weight: inherit;
+	color: #999;
+/*	max-width: 100%; */
+	padding: 4px 6px 4px 0;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
 }
-#tdkb {
-	width: 150px;
+
+pre {
+	width: 100%;
+	overflow: auto;
+	border: 1px solid #aaa;
+	word-wrap: break-word; 
+	padding: 0;
+	margin: 1;
+}
+
+
+.tbavatar {
+	width: 5%;
+}
+.tbusername {
+	width: 15%;
+}
+.tbtext {
+	max-width: 400px;
+	padding: 0px;
+	margin: auto;
+}
+.tbbuttons {
+	width: 10%;
+	text-align: right
 }

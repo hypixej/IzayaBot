@@ -1,23 +1,25 @@
 <?php
-$outputtohtml .= "<center><table border='0'>";
-	foreach ($fetchedarray as $onemessage) {
-		$outputtohtml .= "<tr><td>";
-		if($onemessage['type'] == "0"){
-			$outputtohtml .= "&#x270E;";
-		} elseif($onemessage['type'] == "2"){
-			$outputtohtml .= "&#x1F508;";
-		} elseif($onemessage['type'] == "4"){
-			$outputtohtml .= "&#x26BC;";
+$outputtohtml .= "<table border='0'>";
+	foreach($fetchedarray as $oneobject) {
+		if($oneobject['type'] == "0"){
+			$channeltypeicon = "&#x270E;";
+			$channelhypertext = "<a href='index.php?ty=messages&cid=" . $oneobject['id'] . "'>" . $oneobject['name'] . "</a>";
+		} elseif($oneobject['type'] == "2"){
+			$channeltypeicon = "&#x1F508;";
+			$channelhypertext = $oneobject['name'];
+		} elseif($oneobject['type'] == "4"){
+			$channeltypeicon = "&#x26BC;";
+			$channelhypertext = $oneobject['name'];
 		}
-		$outputtohtml .= "</td>";
-		$outputtohtml .= "<td><a href='index.php?ty=messages&id=" . $onemessage['id'] . "'>";
-		$outputtohtml .= $onemessage['name'];
-		$outputtohtml .= "</a>";
-		$outputtohtml .= "<td>";
-		$outputtohtml .= $onemessage['id'];
-		$outputtohtml .= "</td><td id='tdkb'>";
-		$outputtohtml .= "<button>Edit</button><button>Delete</button>";
-		$outputtohtml .= "</td></tr>";
+		$outputtohtml .= "<tr>";
+		$outputtohtml .= "<td class='tbavatar'>" . $channeltypeicon . "</td>";
+		$outputtohtml .= "<td class='tbusername'>" . $channelhypertext . "</td>";
+		$outputtohtml .= "<td class='tbtext'>" . $oneobject['id'] . "</td>";
+//		$outputtohtml .= "<td class='tbbuttons'>";
+//		$outputtohtml .= "<button>Edit</button>";
+//		$outputtohtml .= "<button>Delete</button>";
+//		$outputtohtml .= "</td>";
+		$outputtohtml .= "</tr>";
 	}
-	$outputtohtml .= "</table></center>";
+	$outputtohtml .= "</table>";
 ?>
