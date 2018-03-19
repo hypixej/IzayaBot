@@ -1,14 +1,12 @@
 #IzayaBot
 
-This bot is written in php and is intended to be used as a Discord bot account client. This is intended to have fun with your friends and make a bot say something in text chats. To get started, simply put the files in web directory.
+This bot is written in php and is intended to be used as a Discord bot account client. This is intended to have fun with your friends and make a bot say something in text chats. To get started, simply put the files in web directory. The bot is named after Izaya Orihara, a character in anime "Durarara!!". Because he knows all. This bot knows all.
 
-Make sure your bot is Gateway identified or whatever.
+Make sure your bot is Gateway identified or whatever. 
 
-For now features are very minimal, you can view what servers you are in, channel lists, and channel messages. You can also send Messages to channels.
-
-The bot is named after Izaya Orihara, a character in anime "Durarara!!". Because he knows all. This bot knows all.
-
-I'm also learning to use Discord api by working on this bot. More features to come!
+Hidden Features:
+1. To change username, you do index.php?ty=changeusername&nv=New_Username_Goes_Here
+2. index.php?ty=messages&cid=(channel_id_here) also works with DM channels.
 
 Update: January 24, 2018
 1. No longer need a config.php for logging in, simply enter your token when it asks you and it gets stored in your browser cookies.
@@ -32,3 +30,10 @@ Update: February 26, 2018
 12. You can now see what what time the message was posted
 13. Slight redesign (like, avatars are larger and etc)
 14. Some bugfixes
+
+Update: March 19, 2018
+1. Easier way to change username.
+2. You can now Delete messages, no confirmation dialog though.
+3. When you log in using the token, you now get invite link in case you need it.
+4. Some Cosmetic changes.
+5. Some under the hood changes

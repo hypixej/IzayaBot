@@ -100,7 +100,8 @@ if(isset($token_in_use)){
 	} elseif($ty == "changeusername"){
 		// Changes username
 		$request = "/users/@me";
-		$post = "{\"username\": \"" . htmlspecialchars("Doge"). "\"}";
+		$newusername = $_GET['nv'];
+		$post = "{\"username\": \"" . htmlspecialchars($newusername). "\"}";
 		array_push($headers, "Content-Type: application/json");
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -110,6 +111,11 @@ if(isset($token_in_use)){
 	} elseif($ty == "msgedit"){
 		// Returns that one message for editing
 		$request = "/channels/$cid/messages/$mid";
+	} elseif($ty == "msgdel"){
+		// delete message
+		$request = "/channels/$cid/messages/$mid";
+		array_push($headers, "Content-Type: application/json");
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
 	} elseif($ty == "postmessage"){
 		// Posts a message in a channel
 		$request = "/channels/$cid/messages";
@@ -144,11 +150,23 @@ if(isset($token_in_use)){
 		include("izayabot_engine/channellist.php"); 
 	} elseif($ty == "msgedit"){
 		include("izayabot_engine/msgedit.php"); 
+	} elseif($ty == "msgdel"){
+		if(isset($fetchedarray['code'])){
+			$outputtohtml .= "The bot has no permissions to delete messages";
+		} else {
+			$outputtohtml .= "Message was deleted, I think...";
+		}
+		$gobacklink = "index.php?ty=messages&cid=$cid";
 	} elseif($ty == "editmessage"){ 
 		$gobacklink = "index.php?ty=messages&cid=$cid";
 		$tablemarkup = true;
 		include("izayabot_engine/messageobject.php");
 	} elseif($ty == "changeusername"){
+		$rdump = true;
+		$buser = $fetchedarray['username'] . "#" . $fetchedarray['discriminator'];
+		setcookie('buser', $buser, time()+10000000);
+		setcookie('bid', $fetchedarray['id'], time()+10000000);
+		setcookie('bavatar', $fetchedarray['avatar'], time()+10000000);
 	} elseif($ty == "loggedin"){
 		setcookie('logintoken', $_POST['logintoken'], time()+10000000);
 		$buser = $fetchedarray['username'] . "#" . $fetchedarray['discriminator'];
@@ -157,6 +175,8 @@ if(isset($token_in_use)){
 		setcookie('bavatar', $fetchedarray['avatar'], time()+10000000);
 		$outputtohtml .= "You have logged in as: " . $buser;
 		$outputtohtml .= "<br><a href='index.php?ty=guildlist'><button>&#10096; Get guild list</button></a>";
+		$bidforadd = $fetchedarray['id'];
+		$outputtohtml .= "<br>You may use <a target='_blank' href='https://discordapp.com/oauth2/authorize?client_id=$bidforadd&scope=bot&permissions=1'>this</a> link to add your bot to a server, or just copy the following and paste it into your address bar: <br><input type='text' onClick='this.select();' style='width: 100%' value='https://discordapp.com/oauth2/authorize?client_id=$bidforadd&scope=bot&permissions=1'></input><hr/>";
 	} elseif($ty == "postmessage"){ 
 		$gobacklink = "index.php?ty=messages&cid=$cid";
 		$tablemarkup = true;
@@ -165,7 +185,7 @@ if(isset($token_in_use)){
 		include("izayabot_engine/guildlist.php"); 
 	}
 	//$rdump = true;
-	if(isset($rdump)){
+	if((isset($_GET['dump'])) OR (isset($rdump))){
 		$outputtohtml .= "<hr><h1>Debug Mode</h1><pre>";
 		$outputtohtml .= var_export($fetchedarray, true);
 		$outputtohtml .= "</pre>";

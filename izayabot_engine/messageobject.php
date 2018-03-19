@@ -42,7 +42,7 @@ $outputtohtml .= "<td class='tbbuttons'>";
 if($oneobject['author']['id'] == $_COOKIE['bid']){
 	$outputtohtml .= "<a href='index.php?ty=msgedit&cid=$cid&mid=" . $oneobject['id'] . "'><button>Edit</button></a>";
 }
-//$outputtohtml .= "<button>Delete</button>";
+$outputtohtml .= "<a href='index.php?ty=msgdel&cid=$cid&mid=" . $oneobject['id'] . "'><button>Delete</button></a>";
 //$outputtohtml .= "<button>Kick</button>";
 //$outputtohtml .= "<button>Ban</button>";
 $outputtohtml .= "</td>";

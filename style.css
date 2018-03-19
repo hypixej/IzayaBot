@@ -1,46 +1,20 @@
-/*@import url(style-table.css);*/
-
 html {
 	font: 13px/22px Tahoma, Geneva, sans-serif;
 }
 
 body {
-	background-color: #FFCCFF;
+	background-color: #bb106d;
 	color: #525c66;
 }
 
-.main {
-	background: #FFFFFF;
-	color: #111111;
-	max-width: 1280px;
-	align: center;
-	margin: 25px auto 10px auto;
-	padding: 40px;
-	border-width: 20px;
-	word-wrap: break-word;
-	overflow:hidden;
-}
-
-h9 {
-	text-align: right;
-}
-
-.wslogo{
-	align: center;
-}
-
-.rbtn {
-	max-width: 360px;
-}
-
 a {
-	color: #0082d9; 
+	color: #bb106d; 
 	border-bottom: 1px solid rgba(0,130,217,0.2);
 	text-decoration: none;
 }
 
 a:hover {
-	color: #008ae5;
+	color: #700707;
 	border-color: rgba(0,130,217,0.5);
 }
 
@@ -48,7 +22,7 @@ h1 {
 	margin: 0 0 0.1em 0;
 	line-height: 1;
 	font-size: 1.8em;
-	color: #0082d9; 
+	color: #bb106d; 
 	text-shadow: 0 1px rgba(255,255,255,0.5);
 }
 
@@ -63,11 +37,16 @@ input {
 	/*box-sizing: border-box; */
 }
 
+button {
+	
+}
 
 table {
-	width: 100%;
+	min-width: 400px;
 	margin: 0 0 15px 0;
 	border-collapse: collapse;
+    margin-left:auto; 
+    margin-right:auto;
 }
 
 tr {
@@ -80,7 +59,8 @@ tr:nth-child(even) {
 }
 
 td {
-	padding: 0.2em 1em 0.2em 6;
+/*		padding: 0.2em 10em 0.2em 6em;*/
+	padding: 1px 10px 1px 10px;
 	color: #666;
 	vertical-align: top; 
 /*	max-width: 460px;*/
@@ -107,13 +87,43 @@ pre {
 	margin: 1;
 }
 
+.main {
+	background: #FFFFFF;
+	color: #111111;
+	max-width: 1280px;
+	width: 960px;
+	min-width: 400px;
+	margin: 25px auto 10px auto;
+	padding: 40px;
+	border-width: 20px;
+	word-wrap: break-word;
+	overflow:hidden;
+}
+
+.wslogo{
+	align: center;
+}
+
+.rbtn {
+	max-width: 360px;
+}
+
+.tbsymbol {
+	width: 2%;
+}
+
+.tbid {
+	width: 15%;
+}
 
 .tbavatar {
 	width: 5%;
 }
+
 .tbusername {
 	width: 15%;
 }
+
 .tbtext {
 	max-width: 400px;
 	padding: 0px;
