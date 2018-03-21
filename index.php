@@ -15,6 +15,10 @@ function imgme($wimg, $whi, $uw){
 	}
 }
 
+function sinvite($guildid, $wannapremissions){
+	return "https://discordapp.com/oauth2/authorize?client_id=" . $guildid . "&scope=bot&permissions=" . $wannapremissions;
+}
+
 if(isset($_GET['logout'])) {
 	setcookie('logintoken', '', time()-10000000);
 	setcookie('buser', '', time()-10000000);
@@ -82,13 +86,18 @@ if(isset($token_in_use)){
 	if($ty == "channellist"){
 		// Gives us a list of channels in the server
 		$request = "/guilds/$gid/channels"; 
+		$extrabuttonarray = array(
+			"&#9786; Member List" => "index.php?ty=guildmembers&gid=" . $gid,
+			"&#9949; Ban List" => "index.php?ty=guildbanlist&gid=" . $gid,
+		);
 	} elseif($ty == "dmlist"){
 		// Gives us a list of current bot DM channels
 		$request = "/users/@me/channels"; 
 	} elseif($ty == "connections"){
 		$request = "/users/@me/connections"; 
+		$rdump = true;
 	} elseif($ty == "guildmembers"){
-		$request = "/guilds/$gid/members"; 
+		$request = "/guilds/$gid/members?limit=1000";
 	} elseif($ty == "guildbanlist"){
 		$request = "/guilds/$gid/bans"; 
 	} elseif($ty == "messages"){
@@ -150,6 +159,18 @@ if(isset($token_in_use)){
 		include("izayabot_engine/channellist.php"); 
 	} elseif($ty == "msgedit"){
 		include("izayabot_engine/msgedit.php"); 
+	} elseif($ty == "guildmembers"){
+		$outputtohtml .= "<center><h1>There are the glorious members in this guild:</h1></center><table>";
+		foreach ($fetchedarray as $oneobject) {
+			include("izayabot_engine/guildmemberobject.php"); 
+		}
+		$outputtohtml .= "</table>";
+	} elseif($ty == "guildbanlist"){
+		$outputtohtml .= "<center><h1>Guild ban list:</h1></center><table>";
+		foreach ($fetchedarray as $oneobject) {
+			include("izayabot_engine/guildbanobject.php"); 
+		}
+		$outputtohtml .= "</table>";
 	} elseif($ty == "msgdel"){
 		if(isset($fetchedarray['code'])){
 			$outputtohtml .= "The bot has no permissions to delete messages";
@@ -176,7 +197,7 @@ if(isset($token_in_use)){
 		$outputtohtml .= "You have logged in as: " . $buser;
 		$outputtohtml .= "<br><a href='index.php?ty=guildlist'><button>&#10096; Get guild list</button></a>";
 		$bidforadd = $fetchedarray['id'];
-		$outputtohtml .= "<br>You may use <a target='_blank' href='https://discordapp.com/oauth2/authorize?client_id=$bidforadd&scope=bot&permissions=1'>this</a> link to add your bot to a server, or just copy the following and paste it into your address bar: <br><input type='text' onClick='this.select();' style='width: 100%' value='https://discordapp.com/oauth2/authorize?client_id=$bidforadd&scope=bot&permissions=1'></input><hr/>";
+		$outputtohtml .= "<br>You may use <a target='_blank' href='" . sinvite($bidforadd, "1") . "'>this</a> link to add your bot to a server, or just copy the following and paste it into your address bar: <br><input type='text' onClick='this.select();' style='width: 100%' value='" . sinvite($bidforadd, "1") . "'></input><hr/>";
 	} elseif($ty == "postmessage"){ 
 		$gobacklink = "index.php?ty=messages&cid=$cid";
 		$tablemarkup = true;
@@ -200,6 +221,7 @@ if(isset($token_in_use)){
 <head>
 	<title>IzayaBot</title>
 	<link rel="stylesheet" href="style.css" media="screen,projection,tv,handheld,print,speech">
+	<link rel="stylesheet" href="style-layout.css" media="screen,projection,tv,handheld,print,speech">
 </head>
 <body>
 <div class="main">
@@ -213,13 +235,18 @@ echo $outputtohtml;
 if(isset($gobacklink)){
 	echo "<a href=\"" . $gobacklink . "\"><button>&#10096; Go Back</button></a>";
 }
+if(isset($extrabuttonarray)){
+	foreach ($extrabuttonarray as $b_text => $b_link){
+		echo "<a href=\"" . $b_link . "\"><button>$b_text</button></a>";
+	}
+} 
 if(isset($token_in_use)){
 	echo "<a href=\"index.php?logout\"><button>&#9919; Logout</button></a><br>";
 	echo "Logged in as: " . $buser;
 	echo "<br>";
 }
 ?>
-IzayaBot by <a href="https://github.com/Kyuunex">Kyuunex</a>
+IzayaBot (<?=$versionNumber; ?>) by <a href="https://github.com/Kyuunex">Kyuunex</a>
 </div>
 </body>
 </html>

@@ -3,18 +3,18 @@ html {
 }
 
 body {
-	background-color: #bb106d;
-	color: #525c66;
+	background-color: #000000;
+	color: #FFFFFF;
 }
 
 a {
-	color: #bb106d; 
+	color: #FFFFFF; 
 	border-bottom: 1px solid rgba(0,130,217,0.2);
 	text-decoration: none;
 }
 
 a:hover {
-	color: #700707;
+	color: #bbbbbb;
 	border-color: rgba(0,130,217,0.5);
 }
 
@@ -22,7 +22,7 @@ h1 {
 	margin: 0 0 0.1em 0;
 	line-height: 1;
 	font-size: 1.8em;
-	color: #bb106d; 
+	color: #FFFFFF; 
 	text-shadow: 0 1px rgba(255,255,255,0.5);
 }
 
@@ -34,24 +34,39 @@ h2 {
 
 input {
 	vertical-align: middle;
-	/*box-sizing: border-box; */
+	/* box-sizing: border-box; */
 }
 
 button {
-	
+	border-color: #FFFFFF;
+	background-color: #36393e;
+	color: #ffffff;
+	border-width: 1px;
+}
+
+input {
+	border-color: #FFFFFF;
+	background-color: #36393e;
+	color: #ffffff;
+	border-width: 1px;
+}
+
+select {
+	border-color: #FFFFFF;
+	background-color: #36393e;
+	color: #ffffff;
+	border-width: 1px;
 }
 
 table {
-	min-width: 400px;
 	margin: 0 0 15px 0;
 	border-collapse: collapse;
     margin-left:auto; 
-    margin-right:auto;
+	margin-right:auto;
 }
 
 tr {
 	border-bottom: 1px solid rgba(0,0,0,0.1);
-/*	max-width: 100%; */
 }
 
 tr:nth-child(even) {
@@ -59,77 +74,29 @@ tr:nth-child(even) {
 }
 
 td {
-/*		padding: 0.2em 10em 0.2em 6em;*/
-	padding: 1px 10px 1px 10px;
-	color: #666;
-	vertical-align: top; 
-/*	max-width: 460px;*/
+	padding: 1px 5px 1px 5px;
+	color: #DDDDDD;
 	word-wrap: break-word;
 }
 
 th {
 	text-align: left;
-/*	width: 230px;*/
 	font-weight: inherit;
-	color: #999;
-/*	max-width: 100%; */
+	color: #DDDDDD;
 	padding: 4px 6px 4px 0;
 	vertical-align: top;
 	border-bottom: 1px solid #ccc;
 }
 
-pre {
-	width: 100%;
-	overflow: auto;
-	border: 1px solid #aaa;
-	word-wrap: break-word; 
-	padding: 0;
-	margin: 1;
-}
-
 .main {
 	background: #FFFFFF;
-	color: #111111;
-	max-width: 1280px;
-	width: 960px;
-	min-width: 400px;
+	color: #DDDDDD;
+	max-width: 960px;
 	margin: 25px auto 10px auto;
 	padding: 40px;
 	border-width: 20px;
 	word-wrap: break-word;
 	overflow:hidden;
+	background-color: #36393e;
 }
-
-.wslogo{
-	align: center;
-}
-
-.rbtn {
-	max-width: 360px;
-}
-
-.tbsymbol {
-	width: 2%;
-}
-
-.tbid {
-	width: 15%;
-}
-
-.tbavatar {
-	width: 5%;
-}
-
-.tbusername {
-	width: 15%;
-}
-
-.tbtext {
-	max-width: 400px;
-	padding: 0px;
-	margin: auto;
-}
-.tbbuttons {
-	width: 10%;
-	text-align: right
-}
+ 

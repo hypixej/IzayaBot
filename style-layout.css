@@ -1,0 +1,42 @@
+pre {
+	width: 100%;
+	overflow: auto;
+	border: 1px solid #aaa;
+	word-wrap: break-word; 
+	padding: 0;
+	margin: 1;
+}
+
+.wslogo{
+	align: center;
+}
+
+.rbtn {
+	max-width: 360px;
+}
+
+.tbsymbol {
+	width: 2%;
+}
+
+.tbid {
+	width: 15%;
+}
+
+.tbavatar {
+	width: 5%;
+}
+
+.tbusername {
+	width: 15%;
+}
+
+.tbtext {
+	max-width: 400px;
+	padding: 0px;
+	margin: auto;
+}
+.tbbuttons {
+	width: 10%;
+	text-align: right
+}

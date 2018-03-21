@@ -1,5 +1,5 @@
 <?php
 $url = "https://github.com/kyuunex/IzayaBot";
-$versionNumber = "0.0.0.2";
+$versionNumber = "18.03.21";
 $useragent = "IzayaBot ($url, $versionNumber)";
 ?>

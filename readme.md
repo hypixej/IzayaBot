@@ -37,3 +37,11 @@ Update: March 19, 2018
 3. When you log in using the token, you now get invite link in case you need it.
 4. Some Cosmetic changes.
 5. Some under the hood changes
+
+Update: March 21, 2018
+1. You can now view guild members (max 1000 members atm)
+2. You can now view a list of banned members in the guild.
+3. Version number will now the the date the build is released on.
+4. Replaced the theme with a Dark theme, Discord color style.
+5. Version number now shows up at bottom.
+6. Added some under the hood things that will make my life easier later on: invite link generator function, separated some style elements into a different css file, a little function for easily creating buttons on the bottom.
