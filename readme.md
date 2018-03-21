@@ -10,7 +10,7 @@ Hidden Features:
 
 Update: January 24, 2018
 1. No longer need a config.php for logging in, simply enter your token when it asks you and it gets stored in your browser cookies.
-2. Lots of features added, too lazy to document the rest<br><br>
+2. Lots of features added, too lazy to document the rest
 
 Update: February 4, 2018
 1. Added message editor
