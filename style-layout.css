@@ -5,6 +5,7 @@ pre {
 	word-wrap: break-word; 
 	padding: 0;
 	margin: 1;
+	white-space: pre-wrap;
 }
 
 .wslogo{

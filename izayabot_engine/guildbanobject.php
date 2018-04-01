@@ -13,4 +13,5 @@ $outputtohtml .= $oneobject['user']['id'] . "</td>";
 //$outputtohtml .= "<button>Unban</button>";
 //$outputtohtml .= "</td>";
 $outputtohtml .= "</tr>";
+$lastuserobject = $oneobject['user']['id'];
 ?>

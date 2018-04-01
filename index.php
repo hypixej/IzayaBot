@@ -51,6 +51,11 @@ if(isset($token_in_use)){
 	} else {
 		$gid = null;
 	}
+	if(isset($_GET['uid'])){
+		$uid = $_GET['uid'];
+	} else {
+		$uid = null;
+	}
 	if(isset($_GET['cid'])){
 		$cid = $_GET['cid'];
 	} else {
@@ -89,6 +94,7 @@ if(isset($token_in_use)){
 		$extrabuttonarray = array(
 			"&#9786; Member List" => "index.php?ty=guildmembers&gid=" . $gid,
 			"&#9949; Ban List" => "index.php?ty=guildbanlist&gid=" . $gid,
+			"&#x2744; Special Things" => "index.php?ty=guildspecialthings&gid=" . $gid,
 		);
 	} elseif($ty == "dmlist"){
 		// Gives us a list of current bot DM channels
@@ -97,20 +103,36 @@ if(isset($token_in_use)){
 		$request = "/users/@me/connections"; 
 		$rdump = true;
 	} elseif($ty == "guildmembers"){
+		if(isset($_GET['lastuo'])){
+			$request = "/guilds/$gid/members?limit=10&after=" . $_GET['lastuo']; 
+		} else {
+			$request = "/guilds/$gid/members?limit=10";
+		}
+	} elseif($ty == "massnick"){
 		$request = "/guilds/$gid/members?limit=1000";
 	} elseif($ty == "guildbanlist"){
 		$request = "/guilds/$gid/bans"; 
 	} elseif($ty == "messages"){
 		// Gives us a list of messages located in the channel
-		$request = "/channels/$cid/messages?limit=100"; 
+		if(isset($_GET['lastm'])){
+			$request = "/channels/$cid/messages?limit=100&before=" . $_GET['lastm']; 
+		} else {
+			$request = "/channels/$cid/messages?limit=100"; 
+		}
 	} elseif($ty == "guildlist"){
 		// Gets a list of guilds a bot is in
 		$request = "/users/@me/guilds";
+		$extrabuttonarray = array(
+			"&#x2744; Special Things" => "index.php?ty=guildspecialthings",
+		);
 	} elseif($ty == "changeusername"){
 		// Changes username
 		$request = "/users/@me";
 		$newusername = $_GET['nv'];
-		$post = "{\"username\": \"" . htmlspecialchars($newusername). "\"}";
+		$postarray = array(
+			"username" => $newusername,
+		);
+		$post = json_encode($postarray);
 		array_push($headers, "Content-Type: application/json");
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -134,7 +156,10 @@ if(isset($token_in_use)){
 	} elseif($ty == "editmessage"){
 		// Edit a message in a channel
 		$request = "/channels/$cid/messages/$mid";
-		$post = "{\"content\": \"" . htmlspecialchars($content). "\"}";
+		$postarray = array(
+			"content" => $content,
+		);
+		$post = json_encode($postarray);
 		array_push($headers, "Content-Type: application/json");
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -155,6 +180,8 @@ if(isset($token_in_use)){
 		include("izayabot_engine/messagelist.php");
 	} elseif($ty == "channellist"){
 		include("izayabot_engine/channellist.php"); 
+	} elseif($ty == "guildspecialthings"){
+		include("izayabot_engine/guildspecialthings.php"); 
 	} elseif($ty == "dmlist"){
 		include("izayabot_engine/channellist.php"); 
 	} elseif($ty == "msgedit"){
@@ -165,12 +192,19 @@ if(isset($token_in_use)){
 			include("izayabot_engine/guildmemberobject.php"); 
 		}
 		$outputtohtml .= "</table>";
+		$extrabuttonarray = array(
+			"&#x2BC8; Next Page" => "index.php?ty=guildmembers&gid=" . $gid . "&lastuo=" . $oneobject['user']['id'],
+		);
+		$gobacklink = "index.php?ty=channellist&gid=" . $gid;
+	} elseif($ty == "massnick"){
+		include("izayabot_engine/massnick.php");
 	} elseif($ty == "guildbanlist"){
 		$outputtohtml .= "<center><h1>Guild ban list:</h1></center><table>";
 		foreach ($fetchedarray as $oneobject) {
 			include("izayabot_engine/guildbanobject.php"); 
 		}
 		$outputtohtml .= "</table>";
+		$gobacklink = "index.php?ty=channellist&gid=" . $gid;
 	} elseif($ty == "msgdel"){
 		if(isset($fetchedarray['code'])){
 			$outputtohtml .= "The bot has no permissions to delete messages";

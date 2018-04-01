@@ -5,8 +5,7 @@ This bot is written in php and is intended to be used as a Discord bot account c
 Make sure your bot is Gateway identified or whatever. 
 
 Hidden Features:
-1. To change username, you do index.php?ty=changeusername&nv=New_Username_Goes_Here
-2. index.php?ty=messages&cid=(channel_id_here) also works with DM channels.
+1. index.php?ty=messages&cid=(channel_id_here) also works with DM channels.
 
 Update: January 24, 2018
 1. No longer need a config.php for logging in, simply enter your token when it asks you and it gets stored in your browser cookies.
@@ -45,3 +44,13 @@ Update: March 21, 2018
 4. Replaced the theme with a Dark theme, Discord color style.
 5. Version number now shows up at bottom.
 6. Added some under the hood things that will make my life easier later on: invite link generator function, separated some style elements into a different css file and a little function for easily creating buttons on the bottom.
+
+Update: April 1, 2018 (not an april fools prank)
+1. Added "special things" page that allows you to do various things.
+2. You can now change nicknames of everyone in the guild with one click. Feature is in "special things" page.
+3. Changing your username is now easily possible in the "special things" page.
+4. You can now view more than 1000 members, so while I implemented that, I also decided to limit the amount of users in one page with 10.
+5. You can now browse messages beyond first 100, with "next page" feature.
+6. Delete message calls now open in new tab by default.
+7. Fixed messages not being warped.
+8. Under the hood things (constructing a json request with php functions instead of manually writing it which fixed a bug with editing messages, adding uid variable for thing to be implemented in future and etc.)
