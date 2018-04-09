@@ -1,6 +1,6 @@
 <?php
 $outputtohtml .= "<tr>";
-$outputtohtml .= "<td><img height='38' src='" . $avatarbaseurl. "/" . $oneobject['user']['id'] . "/" . $oneobject['user']['avatar'] . ".png' /></td>";
+$outputtohtml .= "<td>" . qavatar($oneobject['user']['id'], $oneobject['user']['avatar']) . "</td>";
 $outputtohtml .= "<td><b>" . $oneobject['user']['username'] . "#" . $oneobject['user']['discriminator'] . "</b><br>" . str_replace("T", " ", substr($oneobject['joined_at'], 0, -13)) . "</td>";
 
 $outputtohtml .= "<td>";

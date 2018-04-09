@@ -54,3 +54,15 @@ Update: April 1, 2018 (not an april fools prank)
 6. Delete message calls now open in new tab by default.
 7. Fixed messages not being warped.
 8. Under the hood things (constructing a json request with php functions instead of manually writing it which fixed a bug with editing messages, adding uid variable for thing to be implemented in future and etc.)
+
+Update: April 9, 2018 
+1. set max exec time to 3000 seconds. if you are getting an error, probably remove it, or do it with php.ini.
+2. Embedded images now fit horizontally on message list.
+3. Added some functions to generate image embed.
+4. Added a function for curl requests, which makes it easier for me to implement more features.
+5. Added ability to update many users at once with same settings like same roles.
+6. Added ability to ban and unban a user.
+7. After posting an image, you are taken back to a message list.
+8. The site is slightly more mobile friendly, I guess.
+9. Added experimental support for embeds in messages.
+10. Other general improvements.

@@ -3,7 +3,7 @@ $outputtohtml .= "<table border='0'>";
 	foreach($fetchedarray as $oneobject) {
 		if($oneobject['type'] == "0"){
 			$channeltypeicon = "#";
-			$channelhypertext = "<a href='index.php?ty=messages&cid=" . $oneobject['id'] . "'>" . $oneobject['name'] . "</a>";
+			$channelhypertext = "<a href='index.php?ty=messages&cid=" . $oneobject['id'] . "&gid=" . $gid . "'>" . $oneobject['name'] . "</a>";
 		} elseif($oneobject['type'] == "2"){
 			$channeltypeicon = "&#x1F4DE;";
 			$channelhypertext = $oneobject['name'];

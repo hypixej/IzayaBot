@@ -2,15 +2,13 @@
 $outputtohtml .= "<center><h1>Massnick</h1></center>";
 $outputtohtml .= "<table>";
 foreach ($fetchedarray as $oneguilduserobject){
-	$newnickname = $_GET['nv'];
-	if($newnickname != $oneguilduserobject['nick']){
+	$newrole = array($_GET['nv']);
+	if(1){
 		$secondrequestarray = array(
-			"nick" => $newnickname,
+			"roles" => $newrole,
 		);
 		sleep(1);
 		$secondresponcearray = apirequest("/guilds/$gid/members/" . $oneguilduserobject['user']['id'], $secondrequestarray, 'PATCH', $headers, $useragent);
-	} else {
-		$secondresponcearray = "This user's nickname is already " . $newnickname;
 	}
 	$outputtohtml .= "<tr>";
 	$outputtohtml .= "<td>" . qavatar($oneguilduserobject['user']['id'], $oneguilduserobject['user']['avatar']) . "</td>";

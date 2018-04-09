@@ -8,7 +8,7 @@ if(isset($fetchedarray['code'])){
 	<table border='0'>
 	<form action='index.php?ty=postmessage&cid=$cid' method='POST'>
 		<tr>
-			<td class='tbavatar'><img src='" . $avatarbaseurl. "/" . $bid . "/" . $bavatar . ".png' height='38' /></td>
+			<td class='tbavatar'>" . qavatar($bid, $bavatar) . "</td>
 			<td class='tbusername'>" . $buser . "</td>
 			<td class='tbtext'><textarea name='content' style='width: 100%' placeholder='Type your message here and then click Post.'></textarea></td>
 			<td class='tbbuttons'><input type='submit' value='Post' /></td>
@@ -21,7 +21,7 @@ if(isset($fetchedarray['code'])){
 	$outputtohtml .= "</table>";
 	$extrabuttonarray = array(
 //		"&#x2BC7; Previous Page" => "index.php?ty=messages&cid=" . $cid . "&lastm=" . $lastmessageidfornp,
-		"&#x2BC8; Next Page" => "index.php?ty=messages&cid=" . $cid . "&lastm=" . $lastmessageidfornp,
+		"&#x2BC8; Next Page" => "index.php?ty=messages&cid=" . $cid . "&gid=" . $gid . "&lastm=" . $lastmessageidfornp,
 	);
 }
 // $gobacklink = "index.php?ty=channellist&gid=" . $gid;
