@@ -43,7 +43,12 @@ if(isset($_GET['logout'])) {
 } else {
 	include("izayabot_engine/loginpage.php");
 }
-	
+if(isset($_COOKIE['botusername'])){
+	$pagetitle = $_COOKIE['botusername'];
+} else {
+	$pagetitle = "IzayaBot";
+}
+
 if(isset($token_in_use)){
 	if(isset($_GET['ty'])){
 		$ty = $_GET['ty'];
@@ -227,6 +232,7 @@ if(isset($token_in_use)){
 		$rdump = true;
 		$buser = $fetchedarray['username'] . "#" . $fetchedarray['discriminator'];
 		setcookie('buser', $buser, time()+10000000);
+		setcookie('botusername', $fetchedarray['username'], time()+10000000);
 		setcookie('bid', $fetchedarray['id'], time()+10000000);
 		setcookie('bavatar', $fetchedarray['avatar'], time()+10000000);
 	} elseif($ty == "loggedin"){
@@ -236,6 +242,7 @@ if(isset($token_in_use)){
 		setcookie('logintoken', $_POST['logintoken'], time()+10000000);
 		$buser = $fetchedarray['username'] . "#" . $fetchedarray['discriminator'];
 		setcookie('buser', $buser, time()+10000000);
+		setcookie('botusername', $fetchedarray['username'], time()+10000000);
 		setcookie('bid', $fetchedarray['id'], time()+10000000);
 		setcookie('bavatar', $fetchedarray['avatar'], time()+10000000);
 		$outputtohtml .= "You have logged in as: " . $buser;
@@ -277,7 +284,7 @@ if(isset($token_in_use)){
 </head>
 <body>
 <div class="main">
-<a href="index.php"><h1>IzayaBot</h1></a>
+<a href="index.php"><h1><?=$pagetitle ?></h1></a>
 <hr>
 <?php
 echo $outputtohtml;

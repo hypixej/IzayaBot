@@ -66,3 +66,6 @@ Update: April 9, 2018
 8. The site is slightly more mobile friendly, I guess.
 9. Added experimental support for embeds in messages.
 10. Other general improvements.
+
+Update: April 11, 2018
+1. The page title is now the username of the bot when logged in.
