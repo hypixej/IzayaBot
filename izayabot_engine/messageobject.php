@@ -80,8 +80,10 @@ if($oneobject['author']['id'] == $_COOKIE['bid']){
 }
 $outputtohtml .= "<a target='_blank' href='index.php?ty=msgdel&cid=$cid&mid=" . $oneobject['id'] . "'><button>Delete</button></a>";
 //$outputtohtml .= "<button>Kick</button>";
+
 $outputtohtml .= "<a target='_blank' href='index.php?ty=guildspecialthings&gid=$gid&uid=" . $oneobject['author']['id'] . "&imply=ban'><button>Ban</button></a>";
 $outputtohtml .= "</td>";
+
 $outputtohtml .= "</tr>";
 if(isset($tablemarkup)){
 	$outputtohtml .= "</table>";

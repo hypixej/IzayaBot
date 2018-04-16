@@ -192,7 +192,10 @@ if(isset($token_in_use)){
 		if(isset($fetchedarray['code'])){
 			$outputtohtml .= "The bot has no permissions to delete messages";
 		} else {
-			$outputtohtml .= "Message was deleted, I think...";
+			$outputtohtml .= "Message was deleted, I think...
+			<script language='javascript' type='text/javascript'>
+			window.close();
+			</script>";
 		}
 		$gobacklink = "index.php?ty=messages&cid=$cid";
 	} elseif($ty == "unban"){

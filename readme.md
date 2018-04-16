@@ -69,3 +69,6 @@ Update: April 9, 2018
 
 Update: April 11, 2018
 1. The page title is now the username of the bot when logged in.
+
+Update: April 16, 2018
+1. When you delete message, the new page opens and then closes.
