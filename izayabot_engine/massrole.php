@@ -8,7 +8,7 @@ foreach ($fetchedarray as $oneguilduserobject){
 			"roles" => $newrole,
 		);
 		sleep(1);
-		$secondresponcearray = apirequest("/guilds/$gid/members/" . $oneguilduserobject['user']['id'], $secondrequestarray, 'PATCH', $headers, $useragent);
+		$secondresponcearray = apirequest("/guilds/$gid/members/" . $oneguilduserobject['user']['id'], $secondrequestarray, 'PATCH', $headers);
 	}
 	$outputtohtml .= "<tr>";
 	$outputtohtml .= "<td>" . qavatar($oneguilduserobject['user']['id'], $oneguilduserobject['user']['avatar']) . "</td>";

@@ -2,10 +2,6 @@
 ini_set('max_execution_time', 3000);
 $outputtohtml = "";
 
-$url = "https://github.com/Kyuunex/IzayaBot";
-$versionNumber = "18.04.09";
-$useragent = "IzayaBot ($url, $versionNumber)";
-
 $iconbaseurl = "https://cdn.discordapp.com/icons";
 
 function imgme($wimg, $whi, $uw){
@@ -101,12 +97,17 @@ if(isset($token_in_use)){
 
 	$headers = array('Authorization: Bot ' . $token_in_use,);
 
-	function apirequest($requesturl, $postfieldarray, $requesttype, $headers, $useragent){
+	function apirequest($requesturl, $postfieldarray, $requesttype, $headers){
 		$baseurl = "https://discordapp.com/api";
+		$url = "https://github.com/Kyuunex/IzayaBot";
+		$versionNumber = "18.05.09";
+		$useragent = "IzayaBot ($url, $versionNumber)";
 		$ch = curl_init();
 		$postfields = json_encode($postfieldarray);
 		if($requesttype == 'GET'){
-			// nothing
+			/*
+			curl_setopt($ch, CURLOPT_URL, $baseurl . $requesturl . "?" . http_build_query($postfieldarray));
+			*/
 		} elseif($requesttype == 'POST') {
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $requesttype);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
@@ -135,15 +136,15 @@ if(isset($token_in_use)){
 	if($ty == "messages"){
 		// Gives us a list of messages located in the channel
 		if(isset($_GET['lastm'])){
-			$fetchedarray = apirequest("/channels/$cid/messages?limit=100&before=" . $_GET['lastm'], '', 'GET', $headers, $useragent);
+			$fetchedarray = apirequest("/channels/$cid/messages?limit=100&before=" . $_GET['lastm'], '', 'GET', $headers);
 		} else {
-			$fetchedarray = apirequest("/channels/$cid/messages?limit=100", '', 'GET', $headers, $useragent);
+			$fetchedarray = apirequest("/channels/$cid/messages?limit=100", '', 'GET', $headers);
 		}
 		include("izayabot_engine/messagelist.php");
 	} elseif($ty == "connections"){
-		$fetchedarray = apirequest("/users/@me/connections", '', 'GET', $headers, $useragent);
+		$fetchedarray = apirequest("/users/@me/connections", '', 'GET', $headers);
 	} elseif($ty == "channellist"){
-		$fetchedarray = apirequest("/guilds/$gid/channels", '', 'GET', $headers, $useragent);
+		$fetchedarray = apirequest("/guilds/$gid/channels", '', 'GET', $headers);
 		include("izayabot_engine/channellist.php"); 
 		$extrabuttonarray = array(
 			"&#9786; Member List" => "index.php?ty=guildmembers&gid=" . $gid,
@@ -153,16 +154,16 @@ if(isset($token_in_use)){
 	} elseif($ty == "guildspecialthings"){
 		include("izayabot_engine/guildspecialthings.php"); 
 	} elseif($ty == "dmlist"){
-		$fetchedarray = apirequest("/users/@me/channels", '', 'GET', $headers, $useragent);
+		$fetchedarray = apirequest("/users/@me/channels", '', 'GET', $headers);
 		include("izayabot_engine/channellist.php"); 
 	} elseif($ty == "msgedit"){
-		$fetchedarray = apirequest("/channels/$cid/messages/$mid", '', 'GET', $headers, $useragent);
+		$fetchedarray = apirequest("/channels/$cid/messages/$mid", '', 'GET', $headers);
 		include("izayabot_engine/msgedit.php"); 
 	} elseif($ty == "guildmembers"){
 		if(isset($_GET['lastuo'])){
-			$fetchedarray = apirequest("/guilds/$gid/members?limit=25&after=" . $_GET['lastuo'], '', 'GET', $headers, $useragent);
+			$fetchedarray = apirequest("/guilds/$gid/members?limit=25&after=" . $_GET['lastuo'], '', 'GET', $headers);
 		} else {
-			$fetchedarray = apirequest("/guilds/$gid/members?limit=25", '', 'GET', $headers, $useragent);
+			$fetchedarray = apirequest("/guilds/$gid/members?limit=25", '', 'GET', $headers);
 		}
 		$outputtohtml .= "<center><h1>There are the glorious members in this guild:</h1></center><table>";
 		foreach ($fetchedarray as $oneobject) {
@@ -174,13 +175,13 @@ if(isset($token_in_use)){
 		);
 		$gobacklink = "index.php?ty=channellist&gid=" . $gid;
 	} elseif($ty == "massnick"){
-		$fetchedarray = apirequest("/guilds/$gid/members?limit=1000", '', 'GET', $headers, $useragent);
+		$fetchedarray = apirequest("/guilds/$gid/members?limit=1000", '', 'GET', $headers);
 		include("izayabot_engine/massnick.php");
 	} elseif($ty == "massrole"){
-		$fetchedarray = apirequest("/guilds/$gid/members?limit=1000", '', 'GET', $headers, $useragent);
+		$fetchedarray = apirequest("/guilds/$gid/members?limit=1000", '', 'GET', $headers);
 		include("izayabot_engine/massrole.php");
 	} elseif($ty == "guildbanlist"){
-		$fetchedarray = apirequest("/guilds/$gid/bans", '', 'GET', $headers, $useragent);
+		$fetchedarray = apirequest("/guilds/$gid/bans", '', 'GET', $headers);
 		$outputtohtml .= "<center><h1>Guild ban list:</h1></center><table>";
 		foreach ($fetchedarray as $oneobject) {
 			include("izayabot_engine/guildbanobject.php"); 
@@ -188,7 +189,7 @@ if(isset($token_in_use)){
 		$outputtohtml .= "</table>";
 		$gobacklink = "index.php?ty=channellist&gid=" . $gid;
 	} elseif($ty == "msgdel"){
-		$fetchedarray = apirequest("/channels/$cid/messages/$mid", '', 'DELETE', $headers, $useragent);
+		$fetchedarray = apirequest("/channels/$cid/messages/$mid", '', 'DELETE', $headers);
 		if(isset($fetchedarray['code'])){
 			$outputtohtml .= "The bot has no permissions to delete messages";
 		} else {
@@ -199,7 +200,7 @@ if(isset($token_in_use)){
 		}
 		$gobacklink = "index.php?ty=messages&cid=$cid";
 	} elseif($ty == "unban"){
-		$fetchedarray = apirequest("/guilds/$gid/bans/$uid", '', 'DELETE', $headers, $useragent);
+		$fetchedarray = apirequest("/guilds/$gid/bans/$uid", '', 'DELETE', $headers);
 		if(isset($fetchedarray['code'])){
 			$outputtohtml .= "The bot has no permissions to Unban";
 		} else {
@@ -208,7 +209,7 @@ if(isset($token_in_use)){
 		$gobacklink = "index.php?ty=guildbanlist&gid=$gid";
 	} elseif($ty == "ban"){
 		$banarray = array("reason" => "User was banned suing a bot client");
-		$fetchedarray = apirequest("/guilds/$gid/bans/$uid", $banarray, 'PUT', $headers, $useragent);
+		$fetchedarray = apirequest("/guilds/$gid/bans/$uid", $banarray, 'PUT', $headers);
 		if(isset($fetchedarray['code'])){
 			$outputtohtml .= "The bot has no permissions to Ban";
 		} else {
@@ -221,7 +222,7 @@ if(isset($token_in_use)){
 		$postarray = array(
 			"content" => $content,
 		);
-		$fetchedarray = apirequest("/channels/$cid/messages/$mid", $postarray, 'PATCH', $headers, $useragent);
+		$fetchedarray = apirequest("/channels/$cid/messages/$mid", $postarray, 'PATCH', $headers);
 		$gobacklink = "index.php?ty=messages&cid=$cid";
 		$tablemarkup = true;
 		include("izayabot_engine/messageobject.php");
@@ -231,7 +232,7 @@ if(isset($token_in_use)){
 		$postarray = array(
 			"username" => $newusername,
 		);
-		$fetchedarray = apirequest("/users/@me", $postarray, 'PATCH', $headers, $useragent);
+		$fetchedarray = apirequest("/users/@me", $postarray, 'PATCH', $headers);
 		$rdump = true;
 		$buser = $fetchedarray['username'] . "#" . $fetchedarray['discriminator'];
 		setcookie('buser', $buser, time()+10000000);
@@ -240,7 +241,7 @@ if(isset($token_in_use)){
 		setcookie('bavatar', $fetchedarray['avatar'], time()+10000000);
 	} elseif($ty == "loggedin"){
 		// Gets info about the bot
-		$fetchedarray = apirequest("/users/@me", '', 'GET', $headers, $useragent);
+		$fetchedarray = apirequest("/users/@me", '', 'GET', $headers);
 
 		setcookie('logintoken', $_POST['logintoken'], time()+10000000);
 		$buser = $fetchedarray['username'] . "#" . $fetchedarray['discriminator'];
@@ -255,16 +256,24 @@ if(isset($token_in_use)){
 	} elseif($ty == "postmessage"){
 		// Posts a message in a channel
 		$postarray = array(
-			'content' => $content,
+			"content" => $content,
+//			"embed" => $embedobjectexample,
 		);
-		$fetchedarrayhidden = apirequest("/channels/$cid/messages", $postarray, 'POST', $headers, $useragent);
+		/*
+		$embedobjectexample = array(
+			"title" => "test title",
+			"type" => "rich",
+			"description" => "test description",
+		);
+		*/
+		$fetchedarrayhidden = apirequest("/channels/$cid/messages", $postarray, 'POST', $headers);
 //		$gobacklink = "index.php?ty=messages&cid=$cid";
 		$tablemarkup = true;
-		$fetchedarray = apirequest("/channels/$cid/messages?limit=100", '', 'GET', $headers, $useragent);
+		$fetchedarray = apirequest("/channels/$cid/messages?limit=100", '', 'GET', $headers);
 		include("izayabot_engine/messagelist.php");
 	} elseif($ty == "guildlist"){
 		// Gets a list of guilds a bot is in
-		$fetchedarray = apirequest("/users/@me/guilds", '', 'GET', $headers, $useragent);
+		$fetchedarray = apirequest("/users/@me/guilds", '', 'GET', $headers);
 		$extrabuttonarray = array(
 			"&#x2744; Special Things" => "index.php?ty=guildspecialthings",
 		);
@@ -308,7 +317,7 @@ if(isset($token_in_use)){
 	echo "<br>";
 }
 ?>
-IzayaBot (<?=$versionNumber; ?>) by <a href="https://github.com/Kyuunex">Kyuunex</a>
+<a target="_blank" href="https://github.com/Kyuunex/IzayaBot">IzayaBot on GitHub</a>
 </div>
 </body>
 </html>

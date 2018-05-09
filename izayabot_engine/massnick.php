@@ -8,7 +8,7 @@ foreach ($fetchedarray as $oneguilduserobject){
 			"nick" => $newnickname,
 		);
 		sleep(1);
-		$secondresponcearray = apirequest("/guilds/$gid/members/" . $oneguilduserobject['user']['id'], $secondrequestarray, 'PATCH', $headers, $useragent);
+		$secondresponcearray = apirequest("/guilds/$gid/members/" . $oneguilduserobject['user']['id'], $secondrequestarray, 'PATCH', $headers);
 	} else {
 		$secondresponcearray = "This user's nickname is already " . $newnickname;
 	}

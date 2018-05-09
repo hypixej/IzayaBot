@@ -72,3 +72,6 @@ Update: April 11, 2018
 
 Update: April 16, 2018
 1. When you delete message, the new page opens and then closes.
+
+Update: May 9, 2018
+1. Small under the hood changes.
