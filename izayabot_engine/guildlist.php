@@ -7,7 +7,7 @@ foreach ($fetchedarray as $oneobject){
 	$outputtohtml .= "<td>" . qicon($oneobject['id'], $oneobject['icon']) . "</td>";
 	$outputtohtml .= "<td><a href='index.php?ty=channellist&gid=" . $oneobject['id'] . "'><b>" . $oneobject['name'] . "</b></a><br>";
 	$outputtohtml .= $oneobject['id'];
-	$outputtohtml .= "<br><button>Leave</button>";
+	$outputtohtml .= "<br><a href='index.php?ty=leaveguild&gid=" . $oneobject['id'] . "'><button>Leave</button></a>";
 	$outputtohtml .= "</td></tr>";
 }
 $outputtohtml .= "</table>";

@@ -76,6 +76,11 @@ if(isset($token_in_use)){
 	} else {
 		$mid = null;
 	}
+	if(isset($_GET['spe'])){
+		$spe = $_GET['spe'];
+	} else {
+		$spe = "Bot";
+	}
 	if(isset($_POST['content'])){
 		$content = $_POST['content'];
 	}
@@ -95,7 +100,7 @@ if(isset($token_in_use)){
 		$bavatar = null;
 	}
 
-	$headers = array('Authorization: Bot ' . $token_in_use,);
+	$headers = array('Authorization: ' . $spe . ' ' . $token_in_use,);
 
 	function apirequest($requesturl, $postfieldarray, $requesttype, $headers){
 		$baseurl = "https://discordapp.com/api";
@@ -159,6 +164,9 @@ if(isset($token_in_use)){
 	} elseif($ty == "msgedit"){
 		$fetchedarray = apirequest("/channels/$cid/messages/$mid", '', 'GET', $headers);
 		include("izayabot_engine/msgedit.php"); 
+	} elseif($ty == "leaveguild"){
+		$fetchedarray = apirequest("/users/@me/guilds/$gid", '', 'DELETE', $headers);
+		$outputtohtml .= "done?";
 	} elseif($ty == "guildmembers"){
 		if(isset($_GET['lastuo'])){
 			$fetchedarray = apirequest("/guilds/$gid/members?limit=25&after=" . $_GET['lastuo'], '', 'GET', $headers);

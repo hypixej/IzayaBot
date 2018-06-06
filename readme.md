@@ -75,3 +75,7 @@ Update: April 16, 2018
 
 Update: May 9, 2018
 1. Small under the hood changes.
+
+Update: June 6, 2018
+1. Hello GPL
+2. The bot can now leave guild by pressing the `leave` button
