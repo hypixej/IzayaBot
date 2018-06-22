@@ -79,3 +79,12 @@ Update: May 9, 2018
 Update: June 6, 2018
 1. Hello GPL
 2. The bot can now leave guild by pressing the `leave` button
+
+Update: June 22, 2018
+1. Reduced guild icon size to 64
+2. Added ability to log in to a normal user account with this. Simply empty the toke type field in login page and put your token in token field. Please use responsibly. 
+3. Added a simple counter to show amount of guilds you are in, amount of users in guild (up to 500), amount of channels in server...
+4. Changed max amount of users in member list to 500 because i needed it.
+5. Debug mode now prints pretty json.
+6. You can now view DM channel list, only works on user accounts, not bots.
+7. Minor bigfixes and other changes that are not worth noting.

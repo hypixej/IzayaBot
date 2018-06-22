@@ -17,7 +17,7 @@ function qavatar($userid, $avtid){
 }
 
 function qicon($eyedee, $eyekon){
-	return "<img height='128' src='https://cdn.discordapp.com/icons/" . $eyedee . "/" . $eyekon . ".png' />";
+	return "<img height='64' src='https://cdn.discordapp.com/icons/" . $eyedee . "/" . $eyekon . ".png' />";
 }
 
 function sinvite($guildid, $wannapremissions){
@@ -29,13 +29,20 @@ if(isset($_GET['logout'])) {
 	setcookie('buser', '', time()-10000000);
 	setcookie('bid', '', time()-10000000);
 	setcookie('bavatar', '', time()-10000000);
+	setcookie('tokentype', '', time()-10000000);
 	$outputtohtml .= "You have logged out.<hr>";
 	include("izayabot_engine/loginpage.php");
 } elseif(isset($_POST['logintoken'])) {
 	$token_in_use = $_POST['logintoken'];
+	$tokentypeused = $_POST['tokentype'];
 	$ty = "loggedin";
 } elseif(isset($_COOKIE['logintoken'])){
 	$token_in_use = $_COOKIE['logintoken'];
+	if(isset($_COOKIE['tokentype'])){
+		$tokentypeused = $_COOKIE['tokentype'];
+	} else {
+		$tokentypeused = "";
+	}
 } else {
 	include("izayabot_engine/loginpage.php");
 }
@@ -100,7 +107,7 @@ if(isset($token_in_use)){
 		$bavatar = null;
 	}
 
-	$headers = array('Authorization: ' . $spe . ' ' . $token_in_use,);
+	$headers = array('Authorization: ' . $tokentypeused . ' ' . $token_in_use,);
 
 	function apirequest($requesturl, $postfieldarray, $requesttype, $headers){
 		$baseurl = "https://discordapp.com/api";
@@ -160,6 +167,7 @@ if(isset($token_in_use)){
 		include("izayabot_engine/guildspecialthings.php"); 
 	} elseif($ty == "dmlist"){
 		$fetchedarray = apirequest("/users/@me/channels", '', 'GET', $headers);
+		$outputtohtml .= "<h2>Total: " . count($fetchedarray) . "</h2>";
 		include("izayabot_engine/channellist.php"); 
 	} elseif($ty == "msgedit"){
 		$fetchedarray = apirequest("/channels/$cid/messages/$mid", '', 'GET', $headers);
@@ -169,11 +177,12 @@ if(isset($token_in_use)){
 		$outputtohtml .= "done?";
 	} elseif($ty == "guildmembers"){
 		if(isset($_GET['lastuo'])){
-			$fetchedarray = apirequest("/guilds/$gid/members?limit=25&after=" . $_GET['lastuo'], '', 'GET', $headers);
+			$fetchedarray = apirequest("/guilds/$gid/members?limit=500&after=" . $_GET['lastuo'], '', 'GET', $headers);
 		} else {
-			$fetchedarray = apirequest("/guilds/$gid/members?limit=25", '', 'GET', $headers);
+			$fetchedarray = apirequest("/guilds/$gid/members?limit=500", '', 'GET', $headers);
 		}
-		$outputtohtml .= "<center><h1>There are the glorious members in this guild:</h1></center><table>";
+		$outputtohtml .= "<center><h1>There are the glorious members in this guild:</h1></center>";
+		$outputtohtml .= "<h2>Total: " . count($fetchedarray) . "</h2><table>";
 		foreach ($fetchedarray as $oneobject) {
 			include("izayabot_engine/guildmemberobject.php"); 
 		}
@@ -190,7 +199,8 @@ if(isset($token_in_use)){
 		include("izayabot_engine/massrole.php");
 	} elseif($ty == "guildbanlist"){
 		$fetchedarray = apirequest("/guilds/$gid/bans", '', 'GET', $headers);
-		$outputtohtml .= "<center><h1>Guild ban list:</h1></center><table>";
+		$outputtohtml .= "<center><h1>Guild ban list:</h1></center>";
+		$outputtohtml .= "<h2>Total: " . count($fetchedarray) . "</h2><table>";
 		foreach ($fetchedarray as $oneobject) {
 			include("izayabot_engine/guildbanobject.php"); 
 		}
@@ -252,6 +262,7 @@ if(isset($token_in_use)){
 		$fetchedarray = apirequest("/users/@me", '', 'GET', $headers);
 
 		setcookie('logintoken', $_POST['logintoken'], time()+10000000);
+		setcookie('tokentype', $_POST['tokentype'], time()+10000000);
 		$buser = $fetchedarray['username'] . "#" . $fetchedarray['discriminator'];
 		setcookie('buser', $buser, time()+10000000);
 		setcookie('botusername', $fetchedarray['username'], time()+10000000);
@@ -284,13 +295,14 @@ if(isset($token_in_use)){
 		$fetchedarray = apirequest("/users/@me/guilds", '', 'GET', $headers);
 		$extrabuttonarray = array(
 			"&#x2744; Special Things" => "index.php?ty=guildspecialthings",
+			"&#x2744; DM list" => "index.php?ty=dmlist",
 		);
 		include("izayabot_engine/guildlist.php"); 
 	}
 	if((isset($_GET['dump'])) OR (isset($rdump))){
-		$outputtohtml .= "<hr><h1>Debug Mode</h1><pre>";
-		$outputtohtml .= var_export($fetchedarray, true);
-		$outputtohtml .= "</pre>";
+		$outputtohtml .= "<hr><h1>Debug Mode</h1><textarea onClick='this.select();' style='width: 100%; height: 500px'>";
+		$outputtohtml .= json_encode($fetchedarray, JSON_PRETTY_PRINT);
+		$outputtohtml .= "</textarea>";
 	}
 }
 ?>
