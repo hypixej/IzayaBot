@@ -1,11 +1,12 @@
-#IzayaBot
+# IzayaBot
 
 This bot is written in php and is intended to be used as a Discord bot account client. This is intended to have fun with your friends and make a bot say something in text chats. To get started, simply put the files in web directory. The bot is named after Izaya Orihara, a character in anime "Durarara!!". Because he knows all. This bot knows all.
 
+---
+
 Make sure your bot is Gateway identified or whatever. 
 
-Hidden Features:
-1. index.php?ty=messages&cid=(channel_id_here) also works with DM channels.
+---
 
 Update: January 24, 2018
 1. No longer need a config.php for logging in, simply enter your token when it asks you and it gets stored in your browser cookies.
