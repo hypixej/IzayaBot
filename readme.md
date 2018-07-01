@@ -88,3 +88,7 @@ Update: June 22, 2018
 5. Debug mode now prints pretty json.
 6. You can now view DM channel list, only works on user accounts, not bots.
 7. Minor bigfixes and other changes that are not worth noting.
+
+Update: July 1, 2018
+1. json dump of whatever discord api responded with will now be included on every page by default
+2. Added ability to see channel descriptions. Since discord api exposes channel metadata that you don't have access to, please use responsively.

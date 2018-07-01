@@ -22,7 +22,15 @@ $outputtohtml .= "<table border='0'>";
 		}
 		$outputtohtml .= "<tr>";
 		$outputtohtml .= "<td class=''>" . $channeltypeicon . "</td>";
+
 		$outputtohtml .= "<td class=''>" . $channelhypertext . "</td>";
+
+		if(!empty($oneobject['topic'])){
+			$outputtohtml .= "<td class=''>" . $oneobject['topic'] . "</td>";
+		} else {
+			$outputtohtml .= "<td class=''>&nbsp;</td>";
+		}
+
 		$outputtohtml .= "<td class=''>" . $oneobject['id'] . "</td>";
 //		$outputtohtml .= "<td class='tbbuttons'>";
 //		$outputtohtml .= "<button>Edit</button>";

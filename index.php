@@ -299,6 +299,7 @@ if(isset($token_in_use)){
 		);
 		include("izayabot_engine/guildlist.php"); 
 	}
+	$rdump = true;
 	if((isset($_GET['dump'])) OR (isset($rdump))){
 		$outputtohtml .= "<hr><h1>Debug Mode</h1><textarea onClick='this.select();' style='width: 100%; height: 500px'>";
 		$outputtohtml .= json_encode($fetchedarray, JSON_PRETTY_PRINT);
