@@ -3,18 +3,18 @@ html {
 }
 
 body {
-	background-color: #bb106d;
-	color: #525c66;
+	background-color: #000000;
+	color: #FFFFFF;
 }
 
 a {
-	color: #bb106d; 
+	color: #FFFFFF; 
 	border-bottom: 1px solid rgba(0,130,217,0.2);
 	text-decoration: none;
 }
 
 a:hover {
-	color: #700707;
+	color: #bbbbbb;
 	border-color: rgba(0,130,217,0.5);
 }
 
@@ -22,7 +22,7 @@ h1 {
 	margin: 0 0 0.1em 0;
 	line-height: 1;
 	font-size: 1.8em;
-	color: #bb106d; 
+	color: #FFFFFF; 
 	text-shadow: 0 1px rgba(255,255,255,0.5);
 }
 
@@ -38,30 +38,30 @@ input {
 }
 
 button {
-	border-color: #bb106d;
-	background-color: #FFFFFF;
-	color: #bb106d;
+	border-color: #FFFFFF;
+	background-color: #36393e;
+	color: #ffffff;
 	border-width: 1px;
 }
 
 input {
-	border-color: #bb106d;
-	background-color: #FFFFFF;
-	color: #bb106d;
+	border-color: #FFFFFF;
+	background-color: #36393e;
+	color: #ffffff;
 	border-width: 1px;
 }
 
 textarea {
-	border-color: #bb106d;
-	background-color: #FFFFFF;
-	color: #bb106d;
+	border-color: #FFFFFF;
+	background-color: #36393e;
+	color: #ffffff;
 	border-width: 1px;
 }
 
 select {
-	border-color: #bb106d;
-	background-color: #FFFFFF;
-	color: #bb106d;
+	border-color: #FFFFFF;
+	background-color: #36393e;
+	color: #ffffff;
 	border-width: 1px;
 }
 
@@ -82,14 +82,14 @@ tr:nth-child(even) {
 
 td {
 	padding: 1px 5px 1px 5px;
-	color: #666;
+	color: #DDDDDD;
 	word-wrap: break-word;
 }
 
 th {
 	text-align: left;
 	font-weight: inherit;
-	color: #999;
+	color: #DDDDDD;
 	padding: 4px 6px 4px 0;
 	vertical-align: top;
 	border-bottom: 1px solid #ccc;
@@ -97,12 +97,13 @@ th {
 
 .main {
 	background: #FFFFFF;
-	color: #111111;
-	max-width: 960px;
+	color: #DDDDDD;
+	max-width: 1400px;
 	margin: 25px auto 10px auto;
 	padding: 40px;
 	border-width: 20px;
 	word-wrap: break-word;
 	overflow:hidden;
+	background-color: #36393e;
 }
-
+ 

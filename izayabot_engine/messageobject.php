@@ -33,7 +33,7 @@ if(isset($oneobject['embeds']['0'])){
 	$outputtohtml .= "<pre>";
 	if(isset($oneobject['embeds']['0']['thumbnail']['proxy_url'])){
 		if(isset($oneobject['embeds']['0']['url'])){
-			$outputtohtml .= "<a target='_blank' href='" . $oneobject['embeds']['0']['url'] . "'>" . imgme($oneobject['embeds']['0']['thumbnail']['proxy_url'], 0, 0) . "</a>";
+			$outputtohtml .= "<a target='_blank' href='" . $oneobject['embeds']['0']['url'] . "'>" . imgme($oneobject['embeds']['0']['thumbnail']['proxy_url'], 200, 1) . "</a>";
 		} else {
 			$outputtohtml .= imgme($oneobject['embeds']['0']['thumbnail']['proxy_url'], 0, 0);
 		}

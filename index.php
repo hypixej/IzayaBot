@@ -167,8 +167,7 @@ if(isset($token_in_use)){
 		include("izayabot_engine/guildspecialthings.php"); 
 	} elseif($ty == "dmlist"){
 		$fetchedarray = apirequest("/users/@me/channels", '', 'GET', $headers);
-		$outputtohtml .= "<h2>Total: " . count($fetchedarray) . "</h2>";
-		include("izayabot_engine/channellist.php"); 
+		include("izayabot_engine/channellistdm.php"); 
 	} elseif($ty == "msgedit"){
 		$fetchedarray = apirequest("/channels/$cid/messages/$mid", '', 'GET', $headers);
 		include("izayabot_engine/msgedit.php"); 
@@ -299,19 +298,28 @@ if(isset($token_in_use)){
 		);
 		include("izayabot_engine/guildlist.php"); 
 	}
-	$rdump = true;
+	//$rdump = true;
 	if((isset($_GET['dump'])) OR (isset($rdump))){
 		$outputtohtml .= "<hr><h1>Debug Mode</h1><textarea onClick='this.select();' style='width: 100%; height: 500px'>";
 		$outputtohtml .= json_encode($fetchedarray, JSON_PRETTY_PRINT);
 		$outputtohtml .= "</textarea>";
 	}
+	// if((isset($_GET['dump'])) OR (isset($rdump))){
+	// 	$outputtohtml .= "<hr><h1>Debug Mode</h1><textarea onClick='this.select();' style='width: 100%; height: 500px'>";
+	// 	foreach ($fetchedarray as $oneobject){
+	// 		if(strlen($oneobject['content']) > 0) {
+	// 			$outputtohtml .= $oneobject['content'] . "\n";
+	// 		}
+	// 	}
+	// 	$outputtohtml .= "</textarea>";
+	// }
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>IzayaBot</title>
-	<link rel="stylesheet" href="style.css" media="screen,projection,tv,handheld,print,speech">
+	<link rel="stylesheet" href="style-dark.css" media="screen,projection,tv,handheld,print,speech">
 	<link rel="stylesheet" href="style-layout.css" media="screen,projection,tv,handheld,print,speech">
 	<meta name=viewport content="width=device-width, initial-scale=1">
 </head>

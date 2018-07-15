@@ -93,3 +93,8 @@ Update: June 22, 2018
 Update: July 1, 2018
 1. json dump of whatever discord api responded with will now be included on every page by default
 2. Added ability to see channel descriptions. Since discord api exposes channel metadata that you don't have access to, please use responsively.
+
+Update: July 17, 2018
+1. Added pink style
+2. Fixed bus in DM channel list
+3. Embed thumbnail height now is max 200 px because sometimes it would take too much area.
