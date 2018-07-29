@@ -12,7 +12,7 @@ foreach ($fetchedarray as $oneobject){
 	$outputtohtml .= "</tr>";
 
 	$outputtohtml .= "<tr>";
-	$outputtohtml .= "<td><a href='index.php?ty=leaveguild&gid=" . $oneobject['id'] . "'><button>Leave</button></a></td>";
+	$outputtohtml .= "<td><a href='index.php?ty=leaveguild&gid=" . $oneobject['id'] . "'><button>Leave</button></a><a href='index.php?ty=getguild&gid=" . $oneobject['id'] . "'><button>Get Guild Info</button></a></td>";
 	$outputtohtml .= "</tr>";
 
 }

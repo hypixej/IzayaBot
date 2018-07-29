@@ -98,3 +98,6 @@ Update: July 17, 2018
 1. Added pink style
 2. Fixed bus in DM channel list
 3. Embed thumbnail height now is max 200 px because sometimes it would take too much area.
+
+Update: July 29, 2018
+1. Added get guild information. Use responsibly.

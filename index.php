@@ -155,6 +155,9 @@ if(isset($token_in_use)){
 		include("izayabot_engine/messagelist.php");
 	} elseif($ty == "connections"){
 		$fetchedarray = apirequest("/users/@me/connections", '', 'GET', $headers);
+	} elseif($ty == "getguild"){
+		$fetchedarray = apirequest("/guilds/$gid", '', 'GET', $headers);
+		include("izayabot_engine/guildobject.php");
 	} elseif($ty == "channellist"){
 		$fetchedarray = apirequest("/guilds/$gid/channels", '', 'GET', $headers);
 		include("izayabot_engine/channellist.php"); 
