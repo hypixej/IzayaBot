@@ -210,14 +210,15 @@ if(isset($token_in_use)){
 		$gobacklink = "index.php?ty=channellist&gid=" . $gid;
 	} elseif($ty == "msgdel"){
 		$fetchedarray = apirequest("/channels/$cid/messages/$mid", '', 'DELETE', $headers);
-		if(isset($fetchedarray['code'])){
-			$outputtohtml .= "The bot has no permissions to delete messages";
+		if(isset($fetchedarray['message'])){
+			$outputtohtml .= $fetchedarray['message'];
 		} else {
-			$outputtohtml .= "Message was deleted, I think...
-			<script language='javascript' type='text/javascript'>
+			$outputtohtml .= "Message was deleted, I think...";
+			$outputtohtml .= "<script language='javascript' type='text/javascript'>
 			window.close();
 			</script>";
 		}
+		$rdump = true;
 		$gobacklink = "index.php?ty=messages&cid=$cid";
 	} elseif($ty == "unban"){
 		$fetchedarray = apirequest("/guilds/$gid/bans/$uid", '', 'DELETE', $headers);
