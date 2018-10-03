@@ -15,6 +15,15 @@ if(isset($oneobject['user']['bot'])){
 	$outputtohtml .= "<td>User</td>";
 }
 	
+
+$outputtohtml .= "<td>";
+foreach($oneobject['roles'] as $onerolez){
+	$outputtohtml .= $onerolez . "</br>\r\n";
+}
+//$outputtohtml .= "<button>Kick</button>";
+//$outputtohtml .= "<button>Ban</button>";
+$outputtohtml .= "</td>";
+
 //$outputtohtml .= "<td>";
 //$outputtohtml .= "<button>Kick</button>";
 //$outputtohtml .= "<button>Ban</button>";

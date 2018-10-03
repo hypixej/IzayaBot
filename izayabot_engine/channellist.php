@@ -1,9 +1,32 @@
 <?php
+/*
+function arrangeChannelsCorrectly($fetchedArray){
+	$returnArray = [];
+	$categoryList = [];
+	$channelList = [];
+	usort($fetchedArray, function($a, $b) {
+		return ($a["position"] < $b["position"]) ? -1 : 1;
+	});
+	foreach($fetchedArray as $oneChannelObject){
+		if($oneChannelObject['type'] == "4"){
+			$categoryList[$oneChannelObject['id']] = [];
+		}
+	}
+	foreach($fetchedArray as $oneChannelObject){
+		if($oneChannelObject['type'] !== "4"){
+			if($oneChannelObject['parent_id'] == null){
+				$parentid = "0";
+			} else {
+				$parentid = $oneChannelObject['parent_id'];
+			}
+			array_push($categoryList[$parentid], $oneChannelObject['id']);
+		}
+	}
+	return $categoryList;
+}
 
-//usort($fetchedarray, function($a, $b) {
-//	return ($a["position"] < $b["position"]) ? -1 : 1;
-//});
-
+$blueprint = arrangeChannelsCorrectly($fetchedarray);
+*/
 $outputtohtml .= "<h2>Total: " . count($fetchedarray) . "</h2>";
 $outputtohtml .= "<table border='0'>";
 	foreach($fetchedarray as $oneobject) {

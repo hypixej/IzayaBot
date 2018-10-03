@@ -4,6 +4,16 @@ $outputtohtml = "";
 
 $iconbaseurl = "https://cdn.discordapp.com/icons";
 
+function decodeperms($permsinteger){
+	$binaryperms = decbin($permsinteger);
+
+
+	$returnarray = [
+		"binary" => $binaryperms,
+	];
+	return $returnarray;
+}
+
 function imgme($wimg, $whi, $uw){
 	if($uw == 1){
 		return "<img style='max-height: " . $whi . "px;' src='$wimg' />";
@@ -111,9 +121,9 @@ if(isset($token_in_use)){
 
 	function apirequest($requesturl, $postfieldarray, $requesttype, $headers){
 		$baseurl = "https://discordapp.com/api";
-		$url = "https://github.com/Kyuunex/IzayaBot";
-		$versionNumber = "18.05.09";
-		$useragent = "IzayaBot ($url, $versionNumber)";
+		$url = "https://github.com/Kyuunex/";
+		$versionNumber = "18.09.29";
+		$useragent = "PHP Discord API Wrapper ($url, $versionNumber)";
 		$ch = curl_init();
 		$postfields = json_encode($postfieldarray);
 		if($requesttype == 'GET'){
@@ -183,6 +193,9 @@ if(isset($token_in_use)){
 		} else {
 			$fetchedarray = apirequest("/guilds/$gid/members?limit=500", '', 'GET', $headers);
 		}
+		usort($fetchedarray, function($a, $b) {
+			return ($a["joined_at"] < $b["joined_at"]) ? -1 : 1;
+		});
 		$outputtohtml .= "<center><h1>There are the glorious members in this guild:</h1></center>";
 		$outputtohtml .= "<h2>Total: " . count($fetchedarray) . "</h2><table>";
 		foreach ($fetchedarray as $oneobject) {

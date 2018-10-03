@@ -1,20 +1,16 @@
 <?php
 $outputtohtml .= "<table>";
 $outputtohtml .= "<tr>";
+$outputtohtml .= "<td>" . qicon($fetchedarray['id'], $fetchedarray['icon']) . "</td>";
+$outputtohtml .= "<td><h1>" . $fetchedarray['name'] . "</h1></td>";
+$outputtohtml .= "</tr>";
+$outputtohtml .= "<tr>";
 $outputtohtml .= "<td>Owner ID</td>";
 $outputtohtml .= "<td>" . $fetchedarray['owner_id'] . "</td>";
 $outputtohtml .= "</tr>";
 $outputtohtml .= "<tr>";
 $outputtohtml .= "<td>Guild ID</td>";
 $outputtohtml .= "<td>" . $fetchedarray['id'] . "</td>";
-$outputtohtml .= "</tr>";
-$outputtohtml .= "<tr>";
-$outputtohtml .= "<td>Guild Name</td>";
-$outputtohtml .= "<td>" . $fetchedarray['name'] . "</td>";
-$outputtohtml .= "</tr>";
-$outputtohtml .= "<tr>";
-$outputtohtml .= "<td>Icon</td>";
-$outputtohtml .= "<td>" . qicon($fetchedarray['id'], $fetchedarray['icon']) . "</td>";
 $outputtohtml .= "</tr>";
 $outputtohtml .= "<tr>";
 $outputtohtml .= "<td>Voice Region</td>";
@@ -35,14 +31,25 @@ usort($fetchedarray['roles'], function($a, $b) {
 	return ($a["position"] > $b["position"]) ? -1 : 1;
 });
 foreach($fetchedarray['roles'] as $onerole){
-    $outputtohtml .= "<table style='width: 100%' border='1'>";
+    $outputtohtml .= "<table style='width: 100%;' bordercolor='" . dechex($onerole['color']) . "' border='2'>";
     $outputtohtml .= "<tr>";
     $outputtohtml .= "<td>name</td>";
-    $outputtohtml .= "<td>" . $onerole['name'] . "</td>";
+    $outputtohtml .= "<td><font color='" . dechex($onerole['color']) . "'>" . $onerole['name'] . "</font></td>";
     $outputtohtml .= "</tr>";
     $outputtohtml .= "<tr>";
+    $outputtohtml .= "<td>color</td>";
+    $outputtohtml .= "<td>" . dechex($onerole['color']) . "</td>";
+    $outputtohtml .= "</tr>";
+
+    $callforperms = decodeperms($onerole['permissions']);
+
+    $outputtohtml .= "<tr>";
     $outputtohtml .= "<td>permissions</td>";
-    $outputtohtml .= "<td>" . $onerole['permissions'] . "</td>";
+    $outputtohtml .= "<td>" . $callforperms["binary"] . "</td>";
+    $outputtohtml .= "</tr>";
+    $outputtohtml .= "<tr>";
+    $outputtohtml .= "<td>id</td>";
+    $outputtohtml .= "<td>" . $onerole['id'] . "</td>";
     $outputtohtml .= "</tr>";
     $outputtohtml .= "</table>";
 }
