@@ -2,7 +2,7 @@
 $outputtohtml .= "<table>";
 $outputtohtml .= "<tr>";
 $outputtohtml .= "<td>" . qicon($fetchedarray['id'], $fetchedarray['icon']) . "</td>";
-$outputtohtml .= "<td><h1>" . $fetchedarray['name'] . "</h1></td>";
+$outputtohtml .= "<td><h1><a href='index.php?ty=channellist&gid=" . $fetchedarray['id'] . "'><b>" . $fetchedarray['name'] . "</b></a></h1></td>";
 $outputtohtml .= "</tr>";
 $outputtohtml .= "<tr>";
 $outputtohtml .= "<td>Owner ID</td>";
@@ -34,18 +34,18 @@ foreach($fetchedarray['roles'] as $onerole){
     $outputtohtml .= "<table style='width: 100%;' bordercolor='" . dechex($onerole['color']) . "' border='2'>";
     $outputtohtml .= "<tr>";
     $outputtohtml .= "<td>name</td>";
-    $outputtohtml .= "<td><font color='" . dechex($onerole['color']) . "'>" . $onerole['name'] . "</font></td>";
+    $outputtohtml .= "<td><font color='" . dechex($onerole['color']) . "'><a target='_blank' href='index.php?ty=guildmembers&gid=" . $gid . "&fbr=" . $onerole['id'] . "'>" . $onerole['name'] . "</a></font></td>";
     $outputtohtml .= "</tr>";
     $outputtohtml .= "<tr>";
     $outputtohtml .= "<td>color</td>";
     $outputtohtml .= "<td>" . dechex($onerole['color']) . "</td>";
     $outputtohtml .= "</tr>";
 
-    $callforperms = decodeperms($onerole['permissions']);
+    $callforperms = decodeperms($onerole['permissions'], 1);
 
     $outputtohtml .= "<tr>";
     $outputtohtml .= "<td>permissions</td>";
-    $outputtohtml .= "<td>" . $callforperms["binary"] . "</td>";
+    $outputtohtml .= "<td>" . $callforperms . "</td>";
     $outputtohtml .= "</tr>";
     $outputtohtml .= "<tr>";
     $outputtohtml .= "<td>id</td>";

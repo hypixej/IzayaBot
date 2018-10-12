@@ -4,14 +4,53 @@ $outputtohtml = "";
 
 $iconbaseurl = "https://cdn.discordapp.com/icons";
 
-function decodeperms($permsinteger){
-	$binaryperms = decbin($permsinteger);
-
-
-	$returnarray = [
-		"binary" => $binaryperms,
+function decodeperms($permsinteger, $mode){
+	$permarray = [
+		"CREATE_INSTANT_INVITE" => 0x00000001,
+		"KICK_MEMBERS" => 0x00000002,
+		"BAN_MEMBERS" => 0x00000004,
+		"ADMINISTRATOR" => 0x00000008,
+		"MANAGE_CHANNELS" => 0x00000010,
+		"MANAGE_GUILD" => 0x00000020,
+		"ADD_REACTIONS" => 0x00000040,
+		"VIEW_AUDIT_LOG" => 0x00000080,
+		"VIEW_CHANNEL" => 0x00000400,
+		"SEND_MESSAGES" => 0x00000800,
+		"SEND_TTS_MESSAGES" => 0x00001000,
+		"MANAGE_MESSAGES" => 0x00002000,
+		"EMBED_LINKS" => 0x00004000,
+		"ATTACH_FILES" => 0x00008000,
+		"READ_MESSAGE_HISTORY" => 0x00010000,
+		"MENTION_EVERYONE" => 0x00020000,
+		"USE_EXTERNAL_EMOJIS" => 0x00040000,
+		"CONNECT" => 0x00100000,
+		"SPEAK" => 0x00200000,
+		"MUTE_MEMBERS" => 0x00400000,
+		"DEAFEN_MEMBERS" => 0x00800000,
+		"MOVE_MEMBERS" => 0x01000000,
+		"USE_VAD" => 0x02000000,
+		"PRIORITY_SPEAKER" => 0x00000100,
+		"CHANGE_NICKNAME" => 0x04000000,
+		"MANAGE_NICKNAMES" => 0x08000000,
+		"MANAGE_ROLES" => 0x10000000,
+		"MANAGE_WEBHOOKS" => 0x20000000,
+		"MANAGE_EMOJIS" => 0x4000000,
 	];
-	return $returnarray;
+	$return = "";
+	foreach($permarray as $pdesc => $permbit){
+		if($mode){
+			if($permsinteger & $permbit){
+				$return .= "<font color='ADFF2F'>" . $pdesc . "</font><br>\r\n";
+			} else {
+				$return .= $pdesc . "<br>\r\n";
+			}
+		} else{
+			if($permsinteger & $permbit){
+				$return .= $pdesc . "<br>\r\n";
+			}
+		}
+	}
+	return $return;
 }
 
 function imgme($wimg, $whi, $uw){
@@ -175,6 +214,7 @@ if(isset($token_in_use)){
 			"&#9786; Member List" => "index.php?ty=guildmembers&gid=" . $gid,
 			"&#9949; Ban List" => "index.php?ty=guildbanlist&gid=" . $gid,
 			"&#x2744; Special Things" => "index.php?ty=guildspecialthings&gid=" . $gid,
+			"&#x2744; Guild Overview" => "index.php?ty=getguild&gid=" . $gid,
 		);
 	} elseif($ty == "guildspecialthings"){
 		include("izayabot_engine/guildspecialthings.php"); 
@@ -185,7 +225,7 @@ if(isset($token_in_use)){
 		$fetchedarray = apirequest("/channels/$cid/messages/$mid", '', 'GET', $headers);
 		include("izayabot_engine/msgedit.php"); 
 	} elseif($ty == "leaveguild"){
-		$fetchedarray = apirequest("/users/@me/guilds/$gid", '', 'DELETE', $headers);
+		//$fetchedarray = apirequest("/users/@me/guilds/$gid", '', 'DELETE', $headers);
 		$outputtohtml .= "done?";
 	} elseif($ty == "guildmembers"){
 		if(isset($_GET['lastuo'])){
@@ -199,7 +239,15 @@ if(isset($token_in_use)){
 		$outputtohtml .= "<center><h1>There are the glorious members in this guild:</h1></center>";
 		$outputtohtml .= "<h2>Total: " . count($fetchedarray) . "</h2><table>";
 		foreach ($fetchedarray as $oneobject) {
-			include("izayabot_engine/guildmemberobject.php"); 
+			if(isset($_GET['fbr'])){
+				foreach($oneobject['roles'] as $onerolez){
+					if($onerolez == $_GET['fbr']){
+						include("izayabot_engine/guildmemberobject.php"); 
+					}
+				}
+			} else {
+				include("izayabot_engine/guildmemberobject.php"); 
+			}
 		}
 		$outputtohtml .= "</table>";
 		$extrabuttonarray = array(

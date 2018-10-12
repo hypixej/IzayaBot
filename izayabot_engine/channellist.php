@@ -55,6 +55,22 @@ $outputtohtml .= "<table border='0'>";
 		}
 
 		$outputtohtml .= "<td class=''>" . $oneobject['id'] . "</td>";
+
+		$outputtohtml .= "<td class=''>";
+		foreach($oneobject['permission_overwrites'] as $oneoverride){
+			$outputtohtml .= "<table style='width: 100%;' bordercolor='ffffff' border='2'>";
+			$outputtohtml .= "<tr>";
+			$outputtohtml .= "<td><font color='ffffff'>" . $oneoverride['type'] . "</font></td>";
+			$outputtohtml .= "<td><font color='ffffff'>" . $oneoverride['id'] . "</font></td>";
+			$outputtohtml .= "</tr>";
+			$outputtohtml .= "<tr>";
+			$outputtohtml .= "<td><font color='ccccff'>" . decodeperms($oneoverride['allow'], 0) . "</font></td>";
+			$outputtohtml .= "<td><font color='ffcccc'>" . decodeperms($oneoverride['deny'], 0) . "</font></td>";
+			$outputtohtml .= "</tr>";
+			$outputtohtml .= "</table>";
+		}
+
+		$outputtohtml .= "</td>";
 //		$outputtohtml .= "<td class='tbbuttons'>";
 //		$outputtohtml .= "<button>Edit</button>";
 //		$outputtohtml .= "<button>Delete</button>";
